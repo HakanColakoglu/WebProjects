@@ -1,0 +1,120 @@
+body {
+  background-color: rgb(221, 220, 220);
+}
+#blog-layout {
+  display: flex;
+  flex-direction: column;
+}
+#blog-body {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(250, 248, 248);
+  width: 70%;
+  margin-left: 15%;
+  padding: 2%;
+}
+#newpostbutton-area {
+  display: flex;
+  flex-direction: row;
+}
+#newpost-button {
+  transform: scale(0.8);
+  transform-origin: left;
+  background-color: rgb(11, 197, 11);
+}
+#edit-button {
+  transform: scale(0.6);
+  transform-origin: left;
+  background-color: rgb(25, 144, 212);
+}
+#delete-button {
+  transform: scale(0.6);
+  transform-origin: left;
+  background-color: rgb(235, 46, 46);
+}
+#homepage-button {
+  transform: scale(0.6);
+  transform-origin: left;
+}
+#post-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#post-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+#post-header {
+  font-size: x-large;
+  font-weight: bold;
+}
+#post-body {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+#post-author {
+  font-size: medium;
+  color: darkslategray;
+}
+#editdeletebutton-area {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+#new-post-header {
+  width: 40%;
+  margin-bottom: 10px;
+}
+#new-post-body {
+  width: 50%;
+  height: 100px;
+  resize: none;
+  margin-bottom: 10px;
+}
+#new-post-author {
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+/* From Uiverse.io by iZOXVL */
+.boton-elegante {
+  padding: 15px 30px;
+  border: 2px solid #2c2c2c;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: all 0.4s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.boton-elegante::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: scale(0);
+  transition: transform 0.5s ease;
+}
+
+.boton-elegante:hover::after {
+  transform: scale(4);
+}
+
+.boton-elegante:hover {
+  border-color: #666666;
+  background: #292929;
+}

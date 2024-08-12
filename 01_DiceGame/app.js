@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const PORT = process.env.PORT_DICE_GAME || 3000;
+const PORT = process.env.PORT_DICE_GAME || 3001;
 
 const app = express();
 

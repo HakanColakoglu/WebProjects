@@ -1,0 +1,20 @@
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 40px; 
+}
+h1 { 
+    text-align: center; 
+}
+.project { 
+    margin-bottom: 20px; 
+}
+.header { 
+    font-size: 1.5em; 
+}
+.description { 
+    margin-bottom: 10px; 
+}
+.link { 
+    color: blue; 
+    text-decoration: none; 
+}

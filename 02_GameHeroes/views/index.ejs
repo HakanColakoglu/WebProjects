@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+  <title>Hero Picture</title>
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+
+<body>
+  <div id="page-content">
+    <img id="hero-image" src="<%= imageLink %>" , alt="" />
+    <div id="hero-name"><%= heroName %></div>
+    <div>
+      <form action="/submit" method="post">
+        <input id="new-hero-button" type="submit" value="New Hero" />
+      </form>
+    </div>
+  </div>
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"
+  ></script>
+</body>

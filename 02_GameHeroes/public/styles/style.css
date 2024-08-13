@@ -1,0 +1,27 @@
+body {
+  background-color: rgba(0, 0, 0, 0.863);
+}
+#page-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+#hero-name {
+  font-size: xx-large;
+  color: rgb(218, 102, 165);
+}
+#new-hero-button {
+  background-color: rgb(104, 104, 105);
+  color: rgb(255, 255, 255);
+  font-size: xx-large;
+}
+#hero-image {
+  border-style: solid;
+  border-width: 1rem;
+  border-color: white;
+  width: 20rem;
+  height: 30rem;
+}

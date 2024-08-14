@@ -1,0 +1,45 @@
+version: '3'
+services:
+  mainpage:
+    image: node:latest
+    container_name: mainpage-app
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: bash -c "cd ./00_MainPage && npm install && npm start"
+    ports:
+      - "3001:3001"
+    runtime: runc
+
+  dicegame:
+    image: node:latest
+    container_name: dicegame-app
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: bash -c "cd ./01_DiceGame && npm install && npm start"
+    ports:
+      - "3001:3001"
+    runtime: runc
+
+  gameheroes:
+    image: node:latest
+    container_name: gameheroes-app
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: bash -c "cd ./02_GameHeroes && npm install && npm start"
+    ports:
+      - "3002:3002"
+    runtime: runc
+
+  patterngame:
+    image: node:latest
+    container_name: patterngame-app
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: bash -c "cd ./03_PatternGame && npm install && npm start"
+    ports:
+      - "3003:3003"
+    runtime: runc

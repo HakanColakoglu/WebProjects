@@ -8,7 +8,7 @@ services:
     working_dir: /usr/src/app
     command: bash -c "cd ./00_MainPage && npm install && npm start"
     ports:
-      - "3001:3001"
+      - "3000:3000"
     runtime: runc
 
   dicegame:

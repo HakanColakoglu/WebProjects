@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Upload</title>
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="page-layout">
+      <div class="video-player">
+        <video
+          id="videoPlayer"
+          class="video-js vjs-default-skin"
+          controls
+          preload="auto"
+          width="500"
+          height="300"
+        >
+          <source id="videoSource" src="" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div class="video-list" id="videoList"><h2>Uploaded Videos</h2></div>
+
+      <div>
+        <h1>Upload a Video</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+          <input type="text" name="tagName" placeholder="Enter a tag name" required />
+          <input type="file" name="videoFile" accept="video/*" required />
+          <button type="submit">Upload</button>
+        </form>
+      </div>
+      
+      <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
+      <script src="index.js"></script>
+    </div>
+  </body>
+</html>

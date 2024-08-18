@@ -1,0 +1,17 @@
+#page-layout {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.video-list {
+  margin-top: 20px;
+}
+.video-item {
+  margin-bottom: 10px;
+}
+.video-player {
+  margin-top: 20px;
+}
+#videoPlayer {
+  width: 500px;
+  height: 300px;
+}

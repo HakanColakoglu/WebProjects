@@ -3,27 +3,35 @@ import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import dotenv from "dotenv";
+import { S3Client,  PutObjectCommand } from "@aws-sdk/client-s3";
+
+dotenv.config();
+
+const bucketName = process.env.BUCKET_NAME;
+const bucketRegion = process.env.BUCKET_REGION;
+const accessKey = process.env.ACCESS_KEY;
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 
 const app = express();
 const PORT = 4000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// Serve static files from the public directory
+
 app.use(express.static(path.join(__dirname, "public")));
 
-// Set storage for multer
-const storage = multer.diskStorage({
-  destination: "./uploads/",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretAccessKey,
   },
+  region: bucketRegion,
 });
 
-// Init upload
+// Use memory storage instead of disk storage
+const storage = multer.memoryStorage();
+
 const upload = multer({
   storage: storage,
   limits: { fileSize: 100000000 }, // 100MB limit
@@ -32,13 +40,9 @@ const upload = multer({
   },
 }).single("videoFile");
 
-// Check file type
 function checkFileType(file, cb) {
-  // Allowed ext
   const filetypes = /mp4|mov|avi|mkv/;
-  // Check ext
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  // Check mime
   const mimetype = filetypes.test(file.mimetype);
 
   if (mimetype && extname) {
@@ -48,38 +52,46 @@ function checkFileType(file, cb) {
   }
 }
 
-// Serve the main page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Handle file upload
-app.post("/upload", (req, res) => {
-  upload(req, res, (err) => {
+app.post("/upload", async (req, res) => {
+  upload(req, res, async (err) => {
     if (err) {
-      res.send(`Error: ${err}`);
-    } else {
-      if (req.file == undefined) {
-        res.send("Error: No File Selected!");
-      } else {
-        res.redirect("/");
-      }
+      return res.status(400).send(`Error: ${err}`);
+    } else if (req.file == undefined) {
+      return res.status(400).send("Error: No File Selected!");
+    }
+
+    try {
+      const params = {
+        Bucket: bucketName,
+        Key: req.file.originalname, // Use the original name of the file
+        Body: req.file.buffer, // Use the file buffer directly
+        ContentType: req.file.mimetype,
+      };
+      const command = new PutObjectCommand(params);
+      await s3.send(command);
+
+      res.redirect("/");
+    } catch (uploadError) {
+      console.error("S3 Upload Error:", uploadError);
+      res.status(500).send("Error: Failed to upload file.");
     }
   });
 });
 
-// Route to list uploaded videos
 app.get("/videos", (req, res) => {
   fs.readdir("./uploads", (err, files) => {
     if (err) {
-      res.send("Error: Unable to scan directory.");
+      res.status(500).send("Error: Unable to scan directory.");
     } else {
       res.json(files);
     }
   });
 });
 
-// Serve videos from uploads folder
 app.get("/video/:filename", (req, res) => {
   const videoPath = path.join(process.cwd(), "uploads", req.params.filename);
   res.sendFile(videoPath);

@@ -71,10 +71,40 @@ app.post("/upload", (req, res) => {
     const newMetadata = { tagName, fileName: uniqueName };
     fs.readFile(metadataFile, (err, data) => {
       let metadataList = [];
+
       if (!err) {
         metadataList = JSON.parse(data);
       }
+
+      // Check if the tag already exists
+      const existingMetadataIndex = metadataList.findIndex(
+        (meta) => meta.tagName === tagName
+      );
+
+      if (existingMetadataIndex !== -1) {
+        // If tag exists, delete the associated file from the server
+        const existingFileName = metadataList[existingMetadataIndex].fileName;
+        const filePath = path.join(__dirname, "uploads", existingFileName);
+
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error(`Error deleting existing file: ${err}`);
+            return res.status(500).send("Error deleting the existing file.");
+          }
+
+          console.log(
+            `Existing file ${existingFileName} deleted successfully.`
+          );
+        });
+
+        // Remove the old metadata entry
+        metadataList.splice(existingMetadataIndex, 1);
+      }
+
+      // Add new metadata
       metadataList.push(newMetadata);
+
+      // Save updated metadata to the file
       fs.writeFile(
         metadataFile,
         JSON.stringify(metadataList, null, 2),
@@ -83,6 +113,7 @@ app.post("/upload", (req, res) => {
             console.error("Error saving metadata:", err);
             return res.status(500).send("Error saving metadata.");
           }
+
           res.redirect("/");
         }
       );

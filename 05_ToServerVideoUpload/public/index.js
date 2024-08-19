@@ -2,16 +2,15 @@
 fetch("/videos")
   .then((response) => response.json())
   .then((tags) => {
-    const videoList = document.getElementById("videoList");
+    const videoList = document.getElementById("video-list");
     tags.forEach((tag) => {
       const videoItem = document.createElement("div");
       videoItem.className = "video-item";
-      videoItem.innerHTML = `<ul>
+      videoItem.innerHTML = `<div id='listed-video'><li>
           <a href="#" video-tag="${tag}">
             ${tag}
-          </a>
-          <button video-tag="${tag}">Delete</button>
-        </ul>`;
+          </a></li>
+          <button video-tag="${tag}">Delete</button></div>`;
       videoList.appendChild(videoItem);
     });
 
@@ -35,8 +34,8 @@ fetch("/videos")
 
 // Function to play the video by tag
 function playVideo(src) {
-  const videoPlayer = document.getElementById("videoPlayer");
-  const videoSource = document.getElementById("videoSource");
+  const videoPlayer = document.getElementById("video-player");
+  const videoSource = document.getElementById("video-source");
   videoSource.src = `/video/${src}`;
   videoPlayer.load();
   videoPlayer.play();

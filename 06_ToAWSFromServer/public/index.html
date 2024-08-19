@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Management</title>
+  </head>
+  <body>
+    <h1>Video Management</h1>
+    <button id="uploadAllBtn">Upload All</button>
+    <button id="downloadAllBtn">Download All</button>
+    <button id="cleanCloudBtn">Clean Cloud</button>
+
+    <script>
+      document.getElementById("uploadAllBtn").addEventListener("click", () => {
+        fetch("/upload-all", { method: "POST" })
+          .then((response) => response.text())
+          .then((message) => alert(message))
+          .catch((error) => console.error("Error:", error));
+      });
+
+      document
+        .getElementById("downloadAllBtn")
+        .addEventListener("click", () => {
+          fetch("/download-all", { method: "POST" })
+            .then((response) => response.text())
+            .then((message) => alert(message))
+            .catch((error) => console.error("Error:", error));
+        });
+
+      document.getElementById("cleanCloudBtn").addEventListener("click", () => {
+        fetch("/clean-cloud", { method: "POST" })
+          .then((response) => response.text())
+          .then((message) => alert(message))
+          .catch((error) => console.error("Error:", error));
+      });
+    </script>
+  </body>
+</html>

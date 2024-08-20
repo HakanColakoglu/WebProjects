@@ -9,112 +9,39 @@
   </head>
   <body>
     <div id="page-layout">
-      <div>
-        <h1>Upload a Video to S3</h1>
-        <input
-          type="text"
-          id="tagNameInput"
-          placeholder="Enter a tag name"
-          required
-        />
-        <input type="file" id="videoFileInput" accept="video/*" required />
-        <button id="uploadButton">Upload</button>
+      <div id="left-side">
+        <div class="section" id="video-update">
+          <h1>Upload a Video to S3</h1>
+          <input
+            type="text"
+            id="tag-name-input"
+            placeholder="Enter a tag name"
+            required
+          />
+          <input type="file" id="video-file-input" accept="video/*" required />
+          <button id="upload-button">Upload</button>
+        </div>
+        <div class="section">
+          <video
+            id="video-player"
+            class="video-js vjs-default-skin"
+            controls
+            preload="auto"
+          >
+            <source id="video-source" src="" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
-
-      <div class="video-player">
-        <video
-          id="videoPlayer"
-          class="video-js vjs-default-skin"
-          controls
-          preload="auto"
-          width="500"
-          height="300"
-        >
-          <source id="videoSource" src="" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      <div class="video-list" id="videoList">
-        <h2>Uploaded Videos</h2>
-        <!-- Video list will be populated here -->
+      <div id="right-side">
+        <div class="section">
+          <h1>Uploaded Videos</h1>
+          <ul id="video-list"></ul>
+        </div>
       </div>
     </div>
 
     <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
-    <script>
-      document
-        .getElementById("uploadButton")
-        .addEventListener("click", async () => {
-          const tagName = document.getElementById("tagNameInput").value;
-          const videoFile = document.getElementById("videoFileInput").files[0];
-
-          if (!tagName || !videoFile) {
-            alert("Please provide a tag name and select a video file.");
-            return;
-          }
-
-          // Request a presigned URL for upload
-          const response = await fetch("/generate-upload-url", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ tagName }),
-          });
-
-          const data = await response.json();
-          const { uploadUrl, uniqueFileName } = data;
-
-          // Upload the file directly to S3 using the presigned URL
-          await fetch(uploadUrl, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "video/mp4",
-            },
-            body: videoFile,
-          });
-
-          alert("Video uploaded successfully!");
-          location.reload(); // Reload the page to refresh the video list
-        });
-
-      // Fetch and display the list of uploaded videos
-      fetch("/videos")
-        .then((response) => response.json())
-        .then((tags) => {
-          const videoList = document.getElementById("videoList");
-          tags.forEach((tag) => {
-            const videoItem = document.createElement("div");
-            videoItem.className = "video-item";
-            videoItem.innerHTML = `<ul><a href="#" video-tag="${tag}">${tag}</a></ul>`;
-            videoList.appendChild(videoItem);
-          });
-
-          // Add click event listener to each video link
-          document.querySelectorAll(".video-item a").forEach((link) => {
-            link.addEventListener("click", async function (event) {
-              event.preventDefault();
-              const tagName = this.getAttribute("video-tag");
-
-              // Request a presigned URL for streaming
-              const response = await fetch(`/get-video-url/${tagName}`);
-              const data = await response.json();
-              const { videoUrl } = data;
-
-              playVideo(videoUrl);
-            });
-          });
-        });
-
-      // Function to play the video
-      function playVideo(src) {
-        const videoPlayer = document.getElementById("videoPlayer");
-        const videoSource = document.getElementById("videoSource");
-        videoSource.src = src;
-        videoPlayer.load();
-        videoPlayer.play();
-      }
-    </script>
+    <script src="index.js"></script>
   </body>
 </html>

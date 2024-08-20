@@ -48,21 +48,41 @@ app.post("/generate-upload-url", async (req, res) => {
   };
 
   try {
-    const uploadUrl = await getSignedUrl(
-      s3Client,
-      new PutObjectCommand(params),
-      { expiresIn: 3600 }
-    ); // 1 hour expiry
-
-    // Save metadata
-    const newMetadata = { tagName, fileName: uniqueFileName };
     let metadataList = [];
     if (fs.existsSync(metadataFile)) {
       const data = fs.readFileSync(metadataFile);
       metadataList = JSON.parse(data);
     }
+
+    // Check if a video with the same tagName already exists
+    const existingMetadataIndex = metadataList.findIndex(
+      (meta) => meta.tagName === tagName
+    );
+
+    if (existingMetadataIndex !== -1) {
+      // If the tag exists, delete the existing video from S3
+      const existingFileName = metadataList[existingMetadataIndex].fileName;
+      const deleteParams = {
+        Bucket: bucketName,
+        Key: existingFileName,
+      };
+      await s3Client.send(new DeleteObjectCommand(deleteParams));
+
+      // Remove the old metadata entry
+      metadataList.splice(existingMetadataIndex, 1);
+    }
+
+    // Save new metadata
+    const newMetadata = { tagName, fileName: uniqueFileName };
     metadataList.push(newMetadata);
     fs.writeFileSync(metadataFile, JSON.stringify(metadataList, null, 2));
+
+    // Generate a new presigned URL
+    const uploadUrl = await getSignedUrl(
+      s3Client,
+      new PutObjectCommand(params),
+      { expiresIn: 3600 }
+    ); // 1 hour expiry
 
     res.json({ uploadUrl, uniqueFileName });
   } catch (error) {
@@ -110,6 +130,41 @@ app.get("/videos", (req, res) => {
     const tagList = metadataList.map((metadata) => metadata.tagName);
     res.json(tagList);
   });
+});
+
+// Handle deleting a video from S3 and metadata
+app.delete("/delete-video/:tagName", async (req, res) => {
+  const { tagName } = req.params;
+
+  try {
+    // Read the metadata file to find the video
+    const metadataList = JSON.parse(fs.readFileSync(metadataFile));
+    const metadataIndex = metadataList.findIndex(
+      (meta) => meta.tagName === tagName
+    );
+
+    if (metadataIndex === -1) {
+      return res.status(404).send("Error: Video not found.");
+    }
+
+    const fileName = metadataList[metadataIndex].fileName;
+
+    // Delete the file from S3
+    const params = {
+      Bucket: bucketName,
+      Key: fileName,
+    };
+    await s3Client.send(new DeleteObjectCommand(params));
+
+    // Remove the metadata entry
+    metadataList.splice(metadataIndex, 1);
+    fs.writeFileSync(metadataFile, JSON.stringify(metadataList, null, 2));
+
+    res.send("Video deleted successfully.");
+  } catch (error) {
+    console.error("Error deleting video:", error);
+    res.status(500).send("Error deleting video.");
+  }
 });
 
 // Serve the main page

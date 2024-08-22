@@ -1,0 +1,162 @@
+{
+  "Daily Routine": {
+    "A1": {
+      "Passage": "I wake up at 7 o'clock in the morning. First, I wash my face and brush my teeth. Then, I eat breakfast. My favorite breakfast is bread and eggs. After breakfast, I get dressed. I wear a T-shirt and jeans. At 8 o'clock, I go to school. I walk to school with my friend. We talk and laugh on the way. School starts at 9 o'clock. I learn English, math, and science. I like my teachers. They are very kind. At 12 o'clock, I eat lunch. I usually have rice and chicken for lunch. After lunch, I play with my friends. We play soccer in the park. The school day ends at 3 o'clock. I go home and do my homework. I like to watch TV after homework. I go to bed at 10 o'clock. This is my daily routine.",
+      "Translation": "Sabah saat 7'de uyanıyorum. Öncelikle yüzümü yıkarım ve dişlerimi fırçalarım. Sonra kahvaltı yaparım. En sevdiğim kahvaltı ekmek ve yumurta. Kahvaltıdan sonra giyinirim. Üstüme bir tişört ve kot pantolon giyerim. Saat 8'de okula giderim. Okula arkadaşım ile yürüyerek giderim. Yol boyunca konuşur ve güleriz. Okul saat 9'da başlar. İngilizce, matematik ve fen bilimleri öğreniyorum. Öğretmenlerimi seviyorum. Çok iyi insanlar. Saat 12'de öğle yemeği yerim. Genellikle öğle yemeği olarak pilav ve tavuk yerim. Öğle yemeğinden sonra arkadaşlarımla oynarım. Parkta futbol oynarız. Okul günü saat 3'te biter. Eve giderim ve ödev yaparım. Ödevden sonra televizyon izlemeyi severim. Saat 10'da yatmaya giderim. Bu benim günlük rutinim.",
+      "Vocabulary": {
+        "Nouns": [
+          {
+            "english": "morning",
+            "translation": "sabah"
+          },
+          {
+            "english": "face",
+            "translation": "yüz"
+          },
+          {
+            "english": "teeth",
+            "translation": "dişler"
+          },
+          {
+            "english": "breakfast",
+            "translation": "kahvaltı"
+          },
+          {
+            "english": "bread",
+            "translation": "ekmek"
+          },
+          {
+            "english": "eggs",
+            "translation": "yumurta"
+          },
+          {
+            "english": "T-shirt",
+            "translation": "tişört"
+          },
+          {
+            "english": "jeans",
+            "translation": "kot pantolon"
+          },
+          {
+            "english": "school",
+            "translation": "okul"
+          },
+          {
+            "english": "friend",
+            "translation": "arkadaş"
+          },
+          {
+            "english": "way",
+            "translation": "yol"
+          },
+          {
+            "english": "day",
+            "translation": "gün"
+          },
+          {
+            "english": "lunch",
+            "translation": "öğle yemeği"
+          },
+          {
+            "english": "rice",
+            "translation": "pilav"
+          },
+          {
+            "english": "chicken",
+            "translation": "tavuk"
+          },
+          {
+            "english": "park",
+            "translation": "park"
+          },
+          {
+            "english": "home",
+            "translation": "ev"
+          },
+          {
+            "english": "homework",
+            "translation": "ödev"
+          }
+        ],
+        "Verbs": [
+          {
+            "english": "wake up",
+            "translation": "uyanmak"
+          },
+          {
+            "english": "wash",
+            "translation": "yıkamak"
+          },
+          {
+            "english": "brush",
+            "translation": "fırçalamak"
+          },
+          {
+            "english": "eat",
+            "translation": "yemek"
+          },
+          {
+            "english": "get dressed",
+            "translation": "giyinmek"
+          },
+          {
+            "english": "go",
+            "translation": "gitmek"
+          },
+          {
+            "english": "talk",
+            "translation": "konuşmak"
+          },
+          {
+            "english": "laugh",
+            "translation": "gülmek"
+          },
+          {
+            "english": "learn",
+            "translation": "öğrenmek"
+          },
+          {
+            "english": "like",
+            "translation": "sevmek"
+          },
+          {
+            "english": "play",
+            "translation": "oynamak"
+          },
+          {
+            "english": "end",
+            "translation": "bitmek"
+          },
+          {
+            "english": "do",
+            "translation": "yapmak"
+          },
+          {
+            "english": "watch",
+            "translation": "izlemek"
+          }
+        ],
+        "Adverbs": [
+          {
+            "english": "first",
+            "translation": "ilk"
+          },
+          {
+            "english": "usually",
+            "translation": "genellikle"
+          }
+        ],
+        "Adjectives": [
+          {
+            "english": "favorite",
+            "translation": "favori"
+          },
+          {
+            "english": "kind",
+            "translation": "nazik"
+          }
+        ]
+      }
+    }
+  }
+}
